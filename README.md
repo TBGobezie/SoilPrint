@@ -1,4 +1,4 @@
-# Pedohash 
+# SoilPrint 
 
 A Unique Identification System for Soil Data
 
