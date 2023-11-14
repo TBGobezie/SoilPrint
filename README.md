@@ -1,6 +1,6 @@
 # SoilPrint 
 
-A Unique Identification System for Soil Data
+A Unique Identification System for preserving Soil Data privacy
 
 ## Definitions
 1.	Pedohash is a blend word of the Greek word Pedon', meaning soil, and "hash", referring to a fixed alphanumeric value that represent different lengths of data in the computer world.
