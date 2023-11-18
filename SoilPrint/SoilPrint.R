@@ -12,7 +12,7 @@ library(jsonlite)
 library(digest)
 
 ##Set Working Directory
-setwd(".../SoilPrint") # Replace this with your local repository
+setwd("..../SoilPrint") # Replace this with your local repository
 
 ##Read Structured and Formatted Soil Data From CSV File  
 Soil_data <- read.csv("./Cleaned_OSIS_Example_Data.csv", header = TRUE) # This data is from the Canadian National Pedon Database openly accessible at https://sis.agr.gc.ca/cansis/nsdb/npdb/index.html 
