@@ -5,14 +5,14 @@
 A Unique Identification System for Preserving Privacy of Soil Data
 
 ## Definitions
-1.	SoilPrint is a mathematical algorithmic approach that effectively integrates Soil profile layers' properties (SPLP) with Geohash, providing an efficient means of uniquely identify soil data, liken to a fingerprint, to preserve data privacy in the digital realm. 
-2.	Geohash is a system for encoding two-dimensional geographic coordinates, latitude and longitude, into a single dimensional alphanumeric string.
+1.    SoilPrint is a mathematical algorithmic approach that effectively integrates Soil profile layers' properties (SPLP) with Geohash, providing an efficient means of uniquely identify soil data, liken to a fingerprint, to preserve data privacy in the digital realm. 
+2.    Geohash is a system for encoding two-dimensional geographic coordinates, latitude and longitude, into a single dimensional alphanumeric string.
 
 ## General Description
 This code contains four major parts that enabled Site Serial Identification (SSID), Soil Profile Layers' Properties (SPLPs) and SoilPrints generation, and organizing the original soil data and their corresponding SoilPrints for input into relational database:
-1.	SSID is a Geohash of a given site and it is generated using the geohashTools package to encode the latitude and longitude of profile/ soil sampling location.
-2.	SPLP is a javaScript Object Notation (JSON) string of soil profile layers encompassing physical and chemical, morphological characteristics,  and/or biological properties.
-3.	The SoilPrint Generation; Nested and Custom Approaches: Nested SoilPrint is created by hashing the Geohash linked with SPLP. Custom SoilPrint is generated without linking the SSID of soil data with the SPLP. In the latter, the the SoilPrint is generated first and the SSID is concatenated/ appended to it afterwards.
+1.    SSID is a Geohash of a given site and it is generated using the geohashTools package to encode the latitude and longitude of profile/ soil sampling location.
+2.    SPLP is a javaScript Object Notation (JSON) string of soil profile layers encompassing physical and chemical, morphological characteristics,  and/or biological properties.
+3.    The SoilPrint Generation; Nested and Custom Approaches: Nested SoilPrint is created by hashing the Geohash linked with SPLP. Custom SoilPrint is generated without linking the SSID of soil data with the SPLP. In the latter, the the SoilPrint is generated first and the SSID is concatenated/ appended to it afterwards.
 4. Organizing and Structuring Original Soil Data and Corresponding Soilprints: The original soil data and their corresponding soilprints are organized and structured for input into relational database. 
 The code requires the following R packages: geohashTools, jsonlite, digest
 
