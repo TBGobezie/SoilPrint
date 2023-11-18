@@ -1,12 +1,17 @@
-##################################################################################################################################################################
-#####                   SOILPRINT: A REPLICABLE METHOD FOR SOIL DATA UNIQUE IDENTIFICATION SYSTEM  
-#####                              AUTHOR: TEGBARU B. GOBEZIE                                                                                                #####
+####################################################################################################################################################################################################################################################
+#####                                                                               SOILPRINT: A REPLICABLE METHOD FOR SOIL DATA UNIQUE IDENTIFICATION SYSTEM  
+#####                                                                                               AUTHOR: TEGBARU B. GOBEZIE                                                                                                                 #####
 
-#####   THIS SYSTEM BUILDS UP ON THE RECOMMONDATINS IN THE SOILSHAREWARD MODEL GOBEZIE ET AL., (2023): https://doi.org/10.1038/s43017-023-00439-4            #####
+#####    This code and example dataset is associated with the manuscript titled "Preserving Soil Data Privacy with SoilPrint: A Unique Soil Identification System for Soil Data Sharing" by Gobezie and Biswas, 2023 (Revision requested).     #####
 
-#####         1. GENERATE GEOHASH TO USE AS A SITE SERIAL IDENTIFICATION (SSID)                                                                              #####
+#####      Manuscript citation: Gobezie, T.B. and Biswas, A., 2023. Preserving Soil Data Privacy with SoilPrint: A Unique Soil Identification System for Soil Data Sharing. Geoderma. GEODER-D-23-01338 (Revision requested).                  #####
 
-##Rrequired packages
+
+#####                                                   THIS SOILPRINT SYSTEM BUILDS UP ON THE OVERARCHING SOILSHAREWARD MODEL BY GOBEZIE AND BISWAS (2023): https://doi.org/10.1038/s43017-023-00439-4                                        #####
+
+#####                                                                                       1. GENERATE GEOHASH TO USE AS A SITE SERIAL IDENTIFICATION (SSID)                                                                                  #####
+
+##Required packages
 library(geohashTools)
 library(jsonlite)
 library(digest)
@@ -26,7 +31,7 @@ Soil_data$SSID <- SSID
 ##Get The Distinct SSIDs For Profile Locations Count
 SSID_count <- length(unique(Soil_data$SSID))
 
-#####       2. NESTED SOILPRINT APPROACH                                                                                                                    #####
+#####                                                                                   2. NESTED SOILPRINT APPROACH                                                                                                                          #####
 
 ##Select Desired Columns and Reorder Them
 soil_layer_info <- Soil_data[, c("SSID", "Year", "Upper", "Lower", "Sand", "Silt", "Clay", "Organic_C")] #These are example soil properties   
@@ -64,9 +69,9 @@ if (length(duplicated_SoilPrints) > 0) {
   cat("No duplicated JSON strings were found.\n")
 }
 
-# #####       3. CUSTOM SOILPRINT APPROACH                                                                                                                    #####
+# #####                                                                                      3. CUSTOM SOILPRINT APPROACH                                                                                                                     #####
 # 
-# #################################### This Approach Is Used To Create SPLP1 JSON File Without Linking The SSID With The SPLP ############################################
+# ####################################                                   This Approach Is Used To Create SPLP1 JSON File Without Linking The SSID With The SPLP                                       ############################################
 # 
 # ##Loop Through Each Row And Create A JSON String Of Soil Profile Layers' Properties (SPLP)
 # SPLP1 <- list()
@@ -105,7 +110,7 @@ if (length(duplicated_SoilPrints) > 0) {
 # ##Save The Soil_data Object As An RDS (R Data Serialization) File 
 # saveRDS(Soil_data, file = "./OSIS_Data_SoilPrint.rds")
 
-#####         4. ORGANIZING AND STRUCTURING THE SORIGINAL SOIL DATA, ALONG WITH THEIR CORRESPONDING SOILPRINTS, FOR INPUT INTO RELATIONAL DATABASE      #####
+#####                                                                                      4. ORGANIZING AND STRUCTURING THE SORIGINAL SOIL DATA, ALONG WITH THEIR CORRESPONDING SOILPRINTS, FOR INPUT INTO RELATIONAL DATABASE                #####
 
 ##Sort The Soil_data 
 Soil_data_sorted <- Soil_data[order(Soil_data$SSID, Soil_data$CSSC_Order, Soil_data$Horizon_Number),]
@@ -124,4 +129,5 @@ for (i in 1:ncol(Soil_data_selected)) {
 ##Export The Selected Portion Of The Soil_data With SoilPrints As A CSV File 
 write.csv(Soil_data_selected, file = "./Soil_Data_SoilPrints_Selected.csv", row.names = FALSE)
 
-#####                                                     END                                                                              #####
+#####                                                                                                   END                                                                                                                                    #####
+####################################################################################################################################################################################################################################################
