@@ -1,6 +1,6 @@
 # SoilPrint
 
-A Unique Identification System for Preserving Privacy of Soil Data
+## A Unique Identification System for Preserving Privacy of Soil Data
 
 This code and example dataset is associated with the manuscript titled "Preserving Soil Data Privacy with SoilPrint: A Unique Soil Identification System for Soil Data Sharing" by Gobezie and Biswas, 2023 (Revision requested).   
 
