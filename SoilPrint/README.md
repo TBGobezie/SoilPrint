@@ -29,4 +29,5 @@ The code includes checks for duplicated SoilPrints and duplicated SPLP1 strings 
 ## Organizing and Structuring Output Data
 The output of this code is an organized and structured original soil data, along with their corresponding SoilPrints, exported in csv format for input into relational database. Specifically, for the database from which this data is extracted - the Ontario Soil Information System (OSIS) - SQL queries are employed. 
 
+## Original Soil Data Source
 **Note**: The input soil data used in this code is a cleaned and customized version of the openly accessible National Pedon Database (https://sis.agr.gc.ca/cansis/nsdb/npdb/index.html)
