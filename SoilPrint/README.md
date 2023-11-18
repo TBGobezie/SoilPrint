@@ -26,7 +26,7 @@ The desired columns from the soil data are selected and reordered to create SPLP
 SPLP strings are created as described in the Nested SoiPrint generation process. However, in this case, the SSID is not linked with the SPLP (referred to as SPLP1 string). The SPLP1 strings are hashed using SHA-256 algorithm to create a unique SoilPrint1, which is then combined with their corresponding Geohash.
 The code includes checks for duplicated SoilPrints and duplicated SPLP1 strings to confirm uniqueness of the identification system.
 
-##Organizing and Structuring Original Soil Data and Corresponding Soilprints
+## Organizing and Structuring Original Soil Data and Corresponding Soilprints
 The output of this code is an organized and structured original soil data, along with their corresponding SoilPrints, exported in csv format for input into relational database. Specifically, for the database from which this data is extracted - the Ontario Soil Information System (OSIS) - SQL queries are employed. 
 
 **Note**: The input soil data used in this code is a cleaned and customized version of the openly accessible National Pedon Database (https://sis.agr.gc.ca/cansis/nsdb/npdb/index.html)
