@@ -1,5 +1,7 @@
 ##################################################################################################################################################################
-#####                   SOILPRINT: A REPLICABLE METHOD FOR SOIL DATA UNIQUE IDENTIFICATION SYSTEM                                                            #####
+#####                   SOILPRINT: A REPLICABLE METHOD FOR SOIL DATA UNIQUE IDENTIFICATION SYSTEM  
+#####                              AUTHOR: TEGBARU B. GOBEZIE                                                                                                #####
+
 #####   THIS SYSTEM BUILDS UP ON THE RECOMMONDATINS IN THE SOILSHAREWARD MODEL GOBEZIE ET AL., (2023): https://doi.org/10.1038/s43017-023-00439-4            #####
 
 #####         1. GENERATE GEOHASH TO USE AS A SITE SERIAL IDENTIFICATION (SSID)                                                                              #####
