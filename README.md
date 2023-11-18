@@ -2,6 +2,10 @@
 
 A Unique Identification System for Preserving Privacy of Soil Data
 
+This code and example dataset is associated with the manuscript titled "Preserving Soil Data Privacy with SoilPrint: A Unique Soil Identification System for Soil Data Sharing" by Gobezie and Biswas, 2023 (Revision requested).   
+
+Manuscript citation: Gobezie, T.B. and Biswas, A., 2023. Preserving Soil Data Privacy with SoilPrint: A Unique Soil Identification System for Soil Data Sharing. Geoderma. GEODER-D-23-01338 (Revision requested).               
+
 ## Definitions
 1.    SoilPrint is a mathematical algorithmic approach that effectively integrates Soil profile layers' properties (SPLP) with Geohash, providing an efficient means of uniquely identify soil data, liken to a fingerprint, to preserve data privacy in the digital realm. 
 2.    Geohash is a system for encoding two-dimensional geographic coordinates, latitude and longitude, into a single dimensional alphanumeric string.
@@ -29,4 +33,3 @@ The output of this code is an organized and structured original soil data, along
 
 ## Original Soil Data Source
 **Note**: The input soil data used in this code is a cleaned and customized version of the openly accessible National Pedon Database (https://sis.agr.gc.ca/cansis/nsdb/npdb/index.html)
-
