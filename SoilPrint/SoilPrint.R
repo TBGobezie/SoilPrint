@@ -36,18 +36,35 @@ SSID_count <- length(unique(Soil_data$SSID))
 ##Select Desired Columns and Reorder Them
 soil_layer_info <- Soil_data[, c("SSID", "Year", "Upper", "Lower", "Sand", "Silt", "Clay", "Organic_C")] #These are example soil properties   
 
-##Loop Through Each Row and Create a JSON String of Soil Profile Layers' Properties (SPLP)
+# ##Loop Through Each Row and Create a JSON String of Soil Profile Layers' Properties (SPLP)
+# SPLP <- list()
+# for (i in 1:nrow(soil_layer_info)) {
+#   SPLP[[i]] <- toJSON(soil_layer_info[i, 2:8])
+# }
+# 
+# GSPLP <- sapply(1:nrow(soil_layer_info), function(i) paste0(soil_layer_info[i,"SSID"], "|", SPLP[[i]])) #GSPLP represents Geohash linked with SPLP 
+# 
+# Soil_data$GSPLP <- GSPLP
+# 
+# ##Hash The GSPLP Values Using Secure Hash Algorithm (SHA-256) - This Algorithm Is To Create A Cryptographically Unique Digital ID 
+# SoilPrints <- sapply(Soil_data$GSPLP, digest, algo = "sha256")
+
+## Loop Through Each Row and Create a JSON String of Soil Profile Layers' Properties (SPLP) and Geohash
 SPLP <- list()
 for (i in 1:nrow(soil_layer_info)) {
-  SPLP[[i]] <- toJSON(soil_layer_info[i, 2:8])
+  # Include SSID in the JSON string
+  json_soildata <- c("SSID" = soil_layer_info[i, "SSID"], toJSON(soil_layer_info[i, 2:8]))
+  sorted_jsonsoildata <- toJSON(json_soildata, auto_unbox = FALSE) #This enhances cross-language interoperability since JSON is a widely supported data interchange format
+  SPLP[[i]] <- sorted_jsonsoildata
 }
 
-GSPLP <- sapply(1:nrow(soil_layer_info), function(i) paste0(soil_layer_info[i,"SSID"], "|", SPLP[[i]])) #GSPLP represents Geohash linked with SPLP 
+# Create GSPLP consisting SSID (Geohash) linked with SPLP
+GSPLP <- sapply(1:nrow(soil_layer_info), function(i) paste0(SPLP[[i]]))
 
 Soil_data$GSPLP <- GSPLP
 
-##Hash The GSPLP Values Using Secure Hash Algorithm (SHA-256) - This Algorithm Is To Create A Cryptographically Unique Digital ID 
-SoilPrints <- sapply(Soil_data$GSPLP, digest, algo = "sha256")
+## Hash The GSPLP Values Using Secure Hash Algorithm (SHA-256)
+SoilPrints <- sapply(Soil_data$GSPLP, digest, algo = "sha256", serialize = FALSE) #By avoiding standard serialization here, we can enhance interoperability, reducing the likelihood of platform, programming language, and software-specific issues, as it avoids reliance on R-specific serialization
 
 ##Add The SoilPrints (Nested) As A New Column To The 'soil_data' Data Frame
 Soil_data$SoilPrints_Nested <- SoilPrints
@@ -61,12 +78,20 @@ duplicated_SoilPrints <- duplicated(Soil_data$SoilPrints_Nested)
 #Get The Duplicated JSON Strings
 duplicated_SoilPrints <- Soil_data$Pedohash_Nested[duplicated_SoilPrints]
 
+# ##Print The Duplicated Values, if any
+# if (length(duplicated_SoilPrints) > 0) {
+#   cat("The following JSON strings are duplicated:\n")
+#   print(duplicated_SoilPrints)
+# } else {
+#   cat("No duplicated JSON strings were found.\n")
+# }
+
 ##Print The Duplicated Values, if any
 if (length(duplicated_SoilPrints) > 0) {
-  cat("The following JSON strings are duplicated:\n")
+  cat("The following SoilPrints are duplicated:\n")
   print(duplicated_SoilPrints)
 } else {
-  cat("No duplicated JSON strings were found.\n")
+  cat("No duplicated SoilPrints were found.\n")
 }
 
 # #####                                                                                      3. CUSTOM SOILPRINT APPROACH                                                                                                                     #####
@@ -112,12 +137,23 @@ if (length(duplicated_SoilPrints) > 0) {
 
 #####                                                                                      4. ORGANIZING AND STRUCTURING THE SORIGINAL SOIL DATA, ALONG WITH THEIR CORRESPONDING SOILPRINTS, FOR INPUT INTO RELATIONAL DATABASE                #####
 
+##Depending on specific requirements, the following data export and transmission options can be chosen 
+
+#### A. Create a JSON schema for SoilPrints_Nested and Export the SoilPrint as a file
+#Create a JSON schema for SoilPrints_Nested
+jsonsoilprints_schema <- toJSON(Soil_data$SoilPrints_Nested, pretty = TRUE)
+
+##Export the JSON Schema for SoilPrints_Nested as a file
+writeLines(text = jsonsoilprints_schema, con = "./SoilPrints_Nested_Schema.json") #This helps store SoilPrints alone as a JSON string and the original data remain confidential
+
+#### B. Organize and Export Selected Portion of Soil_data (depending on specific requirements) along with SoilPrints
 ##Sort The Soil_data 
 Soil_data_sorted <- Soil_data[order(Soil_data$SSID, Soil_data$CSSC_Order, Soil_data$Horizon_Number),]
 
-##Select Rows and Columns To Export
+##Select Rows and Columns To Export/ or transmit into relational database
 #Soil_data_selected <- Soil_data_sorted[1:20, c("SSID", "CSSC_Order", "Latitude", "Longitude", "Upper", "Lower", "SoilPrints_Nested", "SoilPrints_Custom")] 
-Soil_data_selected <- Soil_data_sorted[1:20, c("SSID", "CSSC_Order", "Latitude", "Longitude", "Upper", "Lower", "SoilPrints_Nested")] 
+#Soil_data_selected <- Soil_data_sorted[1:20, c("SSID", "CSSC_Order", "Latitude", "Longitude", "Upper", "Lower", "SoilPrints_Nested")] 
+Soil_data_selected <- Soil_data_sorted[1:20, c("SSID", "CSSC_Order", "Latitude", "Longitude", "Upper", "Lower", "Year", "Upper", "Lower", "Sand", "Silt", "Clay", "Organic_C", "SoilPrints_Nested")] 
 
 ##Convert Any List of Columns To Character Strings
 for (i in 1:ncol(Soil_data_selected)) {
@@ -126,8 +162,17 @@ for (i in 1:ncol(Soil_data_selected)) {
   }
 }
 
-##Export The Selected Portion Of The Soil_data With SoilPrints As A CSV File 
-write.csv(Soil_data_selected, file = "./Soil_Data_SoilPrints_Selected.csv", row.names = FALSE)
+# ##Export The Selected Portion Of The Soil_data With SoilPrints As A CSV File 
+# write.csv(Soil_data_selected, file = "./Soil_Data_SoilPrints_Selected.csv", row.names = FALSE) #Depending on specific requirements, this may be chosen or removed
+
+##Create JSON Schema
+json_schema <- toJSON(Soil_data_selected, pretty = TRUE)
+
+##Print JSON schema
+cat(json_schema)
+
+##Export The JSON Schama as a file for an input into relational database
+writeLines(text = json_schema, con = "./Soil_Data_SoilPrints_Selected.json")
 
 #####                                                                                                   END                                                                                                                                    #####
 ####################################################################################################################################################################################################################################################
