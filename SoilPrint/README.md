@@ -2,9 +2,9 @@
 
 ## A Unique Identification System for Preserving Privacy of Soil Data
 
-This code and example dataset is associated with the manuscript titled "Preserving Soil Data Privacy with SoilPrint: A Unique Soil Identification System for Soil Data Sharing" by Gobezie and Biswas, 2023 (Revision requested).   
+This code and example dataset is associated with the manuscript titled "Preserving Soil Data Privacy with SoilPrint: A Unique Soil Identification System for Soil Data Sharing" by Gobezie and Biswas, 2024 (Geoderma).   
 
-Manuscript citation: Gobezie, T.B. and Biswas, A., 2023. Preserving Soil Data Privacy with SoilPrint: A Unique Soil Identification System for Soil Data Sharing. Geoderma. GEODER-D-23-01338 (Revision requested).               
+Manuscript citation: Gobezie, T.B., Biswas, A., 2024. Preserving soil data privacy with SoilPrint: A unique soil identification system for soil data sharing. Geoderma 442, 116795. https://doi.org/10.1016/j.geoderma.2024.116795.               
 
 ## Definitions
 1.    SoilPrint is a mathematical algorithmic approach that effectively integrates Soil profile layers' properties (SPLP) with Geohash, providing an efficient means of uniquely identifying soil data, liken to a fingerprint, to preserve data privacy in the digital realm. 
